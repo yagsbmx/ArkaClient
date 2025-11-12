@@ -7,11 +7,13 @@ server:
 spring:
   application:
     name: order-service
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ordersdb
     username: postgres
     password: "0921"
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,11 +22,22 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "arkaproyect0921@gmail.com"
+    password: "cceg wchx yevk gpkp"
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.debug: true
+
 logging:
   level:
     org.springframework.web: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    feign: DEBUG
 
 eureka:
   client:
@@ -49,5 +62,30 @@ feign:
   hystrix:
     enabled: false
 
+clients:
+  product:
+    url: http://localhost:8080
+    basic:
+      username: service_order
+      password: secret123
+
 user-client:
   auth-token: "MI_TOKEN_DE_SERVICIO"
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+app:
+  notifications:
+    from: "arkaproyect0921@gmail.com"
+    order:
+      enabled: true
+
+security:
+  jwt:
+    secret: ${SECURITY_JWT_SECRET:short_secret_key_32_chars_len!!!}

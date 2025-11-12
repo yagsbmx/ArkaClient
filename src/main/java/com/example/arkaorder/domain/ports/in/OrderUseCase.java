@@ -10,6 +10,8 @@ public interface OrderUseCase {
 
     Order createOrder(Order order);
 
+    Order createOrderFromCart(Long userId);
+
     Optional<Order> getOrderById(Long id);
 
     List<Order> list();
@@ -22,6 +24,7 @@ public interface OrderUseCase {
 
     Order updateStatus(Long id, OrderStatus status);
 
+    String messageFor(OrderStatus status);
 }
 
 

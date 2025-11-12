@@ -25,34 +25,42 @@ repositories {
 }
 
 ext {
-    // 🔹 Versión estable y compatible con Spring Boot 3.5.x
     set('springCloudVersion', "2025.0.0")
 }
 
 dependencies {
-    // 🚀 Dependencias principales
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-    // 🌩️ Spring Cloud
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    // 🧩 Lombok y base de datos
+        // JWT (jjwt)
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     runtimeOnly 'org.postgresql:postgresql'
 
-    // 🧪 Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 dependencyManagement {
     imports {
-        // 🔹 BOM para versiones alineadas de Spring Cloud
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }
@@ -61,7 +69,6 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-// 🔹 Asegura que los nombres de parámetros estén disponibles en runtime
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs += ['-parameters']
 }
